@@ -12,6 +12,7 @@ public class PostResDTO {
     ) {
     }
 
+    @Builder
     public record PostSummaryDTO(
         Long id,
         String title,
@@ -26,6 +27,7 @@ public class PostResDTO {
         long commentCount
     ) {}
 
+    @Builder
     public record PostDetailDTO(
         Long id,
         String title,
@@ -41,6 +43,7 @@ public class PostResDTO {
         List<CommentResDTO> comments
     ) {}
 
+    @Builder
     public record CommentResDTO(
         Long id,
         String contents,
