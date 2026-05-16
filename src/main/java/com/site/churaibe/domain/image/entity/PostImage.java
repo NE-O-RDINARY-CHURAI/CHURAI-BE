@@ -1,5 +1,6 @@
-package com.site.churaibe.domain.post.entity;
+package com.site.churaibe.domain.image.entity;
 
+import com.site.churaibe.domain.post.entity.Post;
 import com.site.churaibe.global.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
