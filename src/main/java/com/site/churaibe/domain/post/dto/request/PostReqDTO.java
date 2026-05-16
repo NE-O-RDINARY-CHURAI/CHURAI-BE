@@ -31,9 +31,6 @@ public class PostReqDTO {
         @Schema(description = "카테고리", example = "MAIN_DISH")
         Category category,
 
-        @Schema(description = "태그 목록", example = "[\"맛집\", \"강남\"]")
-        List<String> tags,
-
         @Size(max = 3, message = "이미지는 최대 3장까지만 업로드 가능합니다.")
         @Schema(description = "이미지 파일 목록", type = "array", implementation = String.class, format = "binary")
         List<MultipartFile> images
@@ -46,7 +43,6 @@ public class PostReqDTO {
         String title,
         String contents,
         Category category,
-        List<String> imageUrls,
-        List<String> tags
+        List<String> imageUrls
     ) {}
 }

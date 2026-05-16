@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Tag(name = "Post", description = "게시글 관련 API")
 public interface PostControllerDocs {
 
-    @Operation(summary = "게시글 작성 API", description = "이미지와 태그를 포함하여 게시글을 작성합니다. 이미지는 최대 3장까지 가능합니다.")
+    @Operation(summary = "게시글 작성 API", description = "이미지를 포함하여 게시글을 작성합니다. 이미지는 최대 3장까지 가능합니다.")
     @ApiResponses({
         @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
         @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "POST400_1", description = "이미지 개수 초과 (최대 3장)", content = @Content(schema = @Schema(implementation = ApiResponse.class))),

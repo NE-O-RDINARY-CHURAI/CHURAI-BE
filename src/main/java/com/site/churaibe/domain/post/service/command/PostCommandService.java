@@ -7,7 +7,6 @@ import com.site.churaibe.domain.post.dto.response.PostResDTO;
 import com.site.churaibe.domain.post.entity.Post;
 import com.site.churaibe.domain.post.exception.code.error.PostErrorCode;
 import com.site.churaibe.domain.post.repository.PostRepository;
-import com.site.churaibe.domain.tag.entity.Tag;
 import com.site.churaibe.global.apiPayload.exception.GeneralException;
 import com.site.churaibe.global.s3.S3Service;
 import java.util.ArrayList;
@@ -66,14 +65,6 @@ public class PostCommandService {
             dto.imageUrls().forEach(url -> {
                 PostImage image = PostImage.builder().imageUrl(url).build();
                 post.addPostImage(image);
-            });
-        }
-
-        if (dto.tags() != null) {
-            post.clearTags();
-            dto.tags().forEach(tagName -> {
-                Tag tag = Tag.builder().name(tagName).build();
-                post.addTag(tag);
             });
         }
 

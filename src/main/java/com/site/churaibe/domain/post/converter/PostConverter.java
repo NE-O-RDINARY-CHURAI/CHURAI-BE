@@ -6,7 +6,6 @@ import com.site.churaibe.domain.post.dto.request.PostReqDTO;
 import com.site.churaibe.domain.post.dto.response.PostResDTO;
 import com.site.churaibe.domain.post.entity.Post;
 import com.site.churaibe.domain.post.enums.ReactionType;
-import com.site.churaibe.domain.tag.entity.Tag;
 import java.util.List;
 
 public class PostConverter {
@@ -32,24 +31,12 @@ public class PostConverter {
             });
         }
 
-        // 태그 매핑 (누락되었던 부분 수정)
-        if (request.tags() != null && !request.tags().isEmpty()) {
-            request.tags().forEach(tagName -> {
-                Tag tag = Tag.builder()
-                    .name(tagName)
-                    .post(post)
-                    .build();
-                post.addTag(tag);
-            });
-        }
-
         return post;
     }
 
     // 썸네일은 첫 번째 이미지, 목록 카드용 요약 정보만 포함
     public static PostResDTO.PostSummaryDTO toSummaryDTO(Post post) {
         String thumbnail = post.getPostImages().isEmpty() ? null : post.getPostImages().get(0).getImageUrl();
-        List<String> tags = post.getTags().stream().map(Tag::getName).toList();
         long churai = post.getReactions().stream().filter(r -> r.getType() == ReactionType.CHURAI).count();
         long interested = post.getReactions().stream().filter(r -> r.getType() == ReactionType.INTERESTED).count();
         return PostResDTO.PostSummaryDTO.builder()
@@ -60,7 +47,6 @@ public class PostConverter {
             .views(post.getViews())
             .createdAt(post.getCreatedAt())
             .thumbnailUrl(thumbnail)
-            .tags(tags)
             .churaiCount(churai)
             .interestedCount(interested)
             .commentCount(post.getComments().size())
@@ -70,7 +56,6 @@ public class PostConverter {
     // 상세 페이지용 전체 정보 포함, 최상위 댓글만 필터링 후 대댓글 재귀 포함
     public static PostResDTO.PostDetailDTO toDetailDTO(Post post) {
         List<String> imageUrls = post.getPostImages().stream().map(PostImage::getImageUrl).toList();
-        List<String> tags = post.getTags().stream().map(Tag::getName).toList();
         long churai = post.getReactions().stream().filter(r -> r.getType() == ReactionType.CHURAI).count();
         long interested = post.getReactions().stream().filter(r -> r.getType() == ReactionType.INTERESTED).count();
         List<PostResDTO.CommentResDTO> comments = post.getComments().stream()
@@ -86,7 +71,6 @@ public class PostConverter {
             .views(post.getViews())
             .createdAt(post.getCreatedAt())
             .imageUrls(imageUrls)
-            .tags(tags)
             .churaiCount(churai)
             .interestedCount(interested)
             .comments(comments)

@@ -21,7 +21,6 @@ public class PostResDTO {
         Long views,
         LocalDateTime createdAt,
         String thumbnailUrl,
-        List<String> tags,
         long churaiCount,
         long interestedCount,
         long commentCount
@@ -37,7 +36,6 @@ public class PostResDTO {
         Long views,
         LocalDateTime createdAt,
         List<String> imageUrls,
-        List<String> tags,
         long churaiCount,
         long interestedCount,
         List<CommentResDTO> comments
