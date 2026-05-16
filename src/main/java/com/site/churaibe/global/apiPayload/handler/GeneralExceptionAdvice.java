@@ -1,9 +1,9 @@
-package com.infragen.infragen.global.apiPayload.handler;
+package com.site.churaibe.global.apiPayload.handler;
 
-import com.infragen.infragen.global.apiPayload.ApiResponse;
-import com.infragen.infragen.global.apiPayload.code.BaseErrorCode;
-import com.infragen.infragen.global.apiPayload.code.GeneralErrorCode;
-import com.infragen.infragen.global.apiPayload.exception.GeneralException;
+import com.site.churaibe.global.apiPayload.ApiResponse;
+import com.site.churaibe.global.apiPayload.code.BaseErrorCode;
+import com.site.churaibe.global.apiPayload.code.GeneralErrorCode;
+import com.site.churaibe.global.apiPayload.exception.GeneralException;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

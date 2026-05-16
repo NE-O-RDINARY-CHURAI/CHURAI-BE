@@ -1,6 +1,6 @@
-package com.infragen.infragen.global.apiPayload.exception;
+package com.site.churaibe.global.apiPayload.exception;
 
-import com.infragen.infragen.global.apiPayload.code.BaseErrorCode;
+import com.site.churaibe.global.apiPayload.code.BaseErrorCode;
 import lombok.Getter;
 
 @Getter

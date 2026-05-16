@@ -1,6 +1,9 @@
 spring:
   application:
     name: CHURAI-BE
+  
+  config:
+    import: "optional:file:.env[.properties]" # .env 파일 로드 설정 추가
 
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/churai?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul}
@@ -28,9 +31,8 @@ cloud:
     credentials:
       access-key: ${AWS_ACCESS_KEY_ID}
       secret-key: ${AWS_SECRET_ACCESS_KEY}
-      session-token: ${AWS_SESSION_TOKEN:}
     region:
-      static: ${AWS_REGION:ap-northeast-2}
+      static: ${AWS_REGION}
       auto: false
     s3:
       bucket: ${AWS_S3_BUCKET_NAME}
