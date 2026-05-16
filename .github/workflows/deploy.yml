@@ -48,7 +48,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ~/churai-be
-            echo "${{ secrets.ENV_PROPERTIES }}" > .env
+            echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" > .env
+            echo "${{ secrets.ENV_PROPERTIES }}" >> .env
             docker-compose pull
             docker-compose up -d
             docker image prune -f
