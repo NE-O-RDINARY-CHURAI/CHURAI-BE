@@ -1,7 +1,7 @@
 package com.site.churaibe.domain.post.converter;
 
 import com.site.churaibe.domain.comment.entity.Comment;
-import com.site.churaibe.domain.image.entity.PostImage;
+import com.site.churaibe.domain.post.entity.PostImage;
 import com.site.churaibe.domain.post.dto.request.PostReqDTO;
 import com.site.churaibe.domain.post.dto.response.PostResDTO;
 import com.site.churaibe.domain.post.entity.Post;

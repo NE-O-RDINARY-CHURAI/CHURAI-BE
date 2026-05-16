@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Slf4j
 @RestController
@@ -64,5 +67,27 @@ public class PostController implements PostControllerDocs {
     @GetMapping("/{id}")
     public ApiResponse<PostResDTO.PostDetailDTO> getPost(@PathVariable Long id) {
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, postQueryService.getPost(id));
+    }
+
+    @Override
+    @PatchMapping("/{id}")
+    public ApiResponse<PostResDTO.PostDetailDTO> updatePost(
+        @PathVariable Long id,
+        @RequestBody @Valid PostReqDTO.PostUpdateDTO request
+    ) {
+        log.info("[PostController] 게시글 수정 요청 수신 - ID: {}", id);
+        PostResDTO.PostDetailDTO response = postCommandService.updatePost(id, request);
+        return ApiResponse.onSuccess(PostSuccessCode.POST_UPDATE_SUCCESS, response);
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    public ApiResponse<String> deletePost(
+        @PathVariable Long id,
+        @RequestParam String password
+    ) {
+        log.info("[PostController] 게시글 삭제 요청 수신 - ID: {}", id);
+        postCommandService.deletePost(id, password);
+        return ApiResponse.onSuccess(PostSuccessCode.POST_DELETE_SUCCESS, "게시글이 성공적으로 삭제되었습니다.");
     }
 }

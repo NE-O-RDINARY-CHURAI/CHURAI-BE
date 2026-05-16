@@ -12,6 +12,11 @@ public enum S3ErrorCode implements BaseErrorCode {
         "S3_500_1",
         "S3 파일 업로드 중 오류가 발생했습니다."
     ),
+    S3_DELETE_FAILED(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        "S3_500_2",
+        "S3 파일 삭제 중 오류가 발생했습니다."
+    ),
     ;
 
     private final HttpStatus httpStatus;

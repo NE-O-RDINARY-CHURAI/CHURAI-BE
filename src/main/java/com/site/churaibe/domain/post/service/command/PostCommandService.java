@@ -1,6 +1,6 @@
 package com.site.churaibe.domain.post.service.command;
 
-import com.site.churaibe.domain.image.entity.PostImage;
+import com.site.churaibe.domain.post.entity.PostImage;
 import com.site.churaibe.domain.post.converter.PostConverter;
 import com.site.churaibe.domain.post.dto.request.PostReqDTO;
 import com.site.churaibe.domain.post.dto.response.PostResDTO;
@@ -61,13 +61,42 @@ public class PostCommandService {
         post.update(dto.title(), dto.contents(), dto.category());
 
         if (dto.imageUrls() != null) {
+            // 기존 S3 이미지 URL들 백업
+            List<String> oldUrls = post.getPostImages().stream()
+                .map(PostImage::getImageUrl)
+                .toList();
+
             post.clearImages();
             dto.imageUrls().forEach(url -> {
                 PostImage image = PostImage.builder().imageUrl(url).build();
                 post.addPostImage(image);
             });
+
+            // 새 목록에 없는 기존 이미지 파일만 S3에서 삭제
+            oldUrls.stream()
+                .filter(url -> !dto.imageUrls().contains(url))
+                .forEach(s3Service::deleteFile);
         }
 
         return PostConverter.toDetailDTO(post);
+    }
+
+    @Transactional
+    public void deletePost(Long id, String password) {
+        Post post = postRepository.findById(id)
+            .orElseThrow(() -> new GeneralException(PostErrorCode.POST_NOT_FOUND));
+
+        if (!post.getPassword().equals(password)) {
+            throw new GeneralException(PostErrorCode.PASSWORD_MISMATCH);
+        }
+
+        // S3에서 연관된 실물 이미지 일괄 삭제
+        List<String> imageUrls = post.getPostImages().stream()
+            .map(PostImage::getImageUrl)
+            .toList();
+        s3Service.deleteFiles(imageUrls);
+
+        // DB에서 포스트 삭제 (Cascade로 연관된 PostImage, Comment, Reaction도 일괄 자동 삭제)
+        postRepository.delete(post);
     }
 }

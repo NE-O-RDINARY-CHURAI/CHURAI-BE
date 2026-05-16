@@ -58,4 +58,26 @@ public interface PostControllerDocs {
     ApiResponse<PostResDTO.PostDetailDTO> getPost(
         @Parameter(description = "게시글 ID", example = "1", required = true) Long id
     );
+
+    @Operation(summary = "게시글 수정 API", description = "게시글을 수정합니다. 비밀번호 검증이 필요합니다.")
+    @ApiResponses({
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "POST400_2", description = "비밀번호 불일치", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "POST404_1", description = "게시글을 찾을 수 없습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    ApiResponse<PostResDTO.PostDetailDTO> updatePost(
+        @Parameter(description = "게시글 ID", example = "1", required = true) Long id,
+        PostReqDTO.PostUpdateDTO request
+    );
+
+    @Operation(summary = "게시글 삭제 API", description = "게시글을 삭제합니다. 비밀번호 검증이 필요하며 연관 데이터 및 S3 실물 파일도 일괄 삭제됩니다.")
+    @ApiResponses({
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공입니다."),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "POST400_2", description = "비밀번호 불일치", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "POST404_1", description = "게시글을 찾을 수 없습니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    ApiResponse<String> deletePost(
+        @Parameter(description = "게시글 ID", example = "1", required = true) Long id,
+        @Parameter(description = "게시글 수정/삭제용 비밀번호", example = "1234", required = true) String password
+    );
 }

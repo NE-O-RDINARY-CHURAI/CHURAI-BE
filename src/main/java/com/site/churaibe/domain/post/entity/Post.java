@@ -1,7 +1,6 @@
 package com.site.churaibe.domain.post.entity;
 
 import com.site.churaibe.global.entity.BaseEntity;
-import com.site.churaibe.domain.image.entity.PostImage;
 import com.site.churaibe.domain.reaction.entity.Reaction;
 import com.site.churaibe.domain.comment.entity.Comment;
 import com.site.churaibe.domain.post.enums.Category;

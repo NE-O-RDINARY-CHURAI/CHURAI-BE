@@ -60,4 +60,33 @@ public class S3Service {
         
         return uploadedUrls;
     }
+
+    public void deleteFile(String fileUrl) {
+        if (fileUrl == null || fileUrl.isBlank()) return;
+
+        String key = extractKeyFromUrl(fileUrl);
+        log.debug("[S3Service] S3 파일 삭제 시도: {}", key);
+
+        try {
+            s3Client.deleteObject(builder -> builder.bucket(bucket).key(key));
+            log.info("[S3Service] S3 파일 삭제 성공: {}", key);
+        } catch (Exception e) {
+            // S3 파일 삭제 실패가 비즈니스 트랜잭션 전체를 롤백시키지 않도록 경고 로그만 남김
+            log.warn("[S3Service] S3 파일 삭제 실패 (DB 트랜잭션 안전성 유지를 위해 예외를 생략하고 계속 진행합니다): {}", key, e);
+        }
+    }
+
+    public void deleteFiles(List<String> fileUrls) {
+        if (fileUrls == null || fileUrls.isEmpty()) return;
+        fileUrls.forEach(this::deleteFile);
+    }
+
+    private String extractKeyFromUrl(String fileUrl) {
+        String delimiter = "amazonaws.com/";
+        int index = fileUrl.indexOf(delimiter);
+        if (index != -1) {
+            return fileUrl.substring(index + delimiter.length());
+        }
+        return fileUrl;
+    }
 }
