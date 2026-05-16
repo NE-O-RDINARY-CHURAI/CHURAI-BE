@@ -20,7 +20,6 @@ public class PostReqDTO {
         @Schema(description = "게시글 내용", example = "여기 진짜 맛있어요!")
         String contents,
 
-        @NotBlank(message = "닉네임은 필수 입력 사항입니다.")
         @Schema(description = "작성자 닉네임", example = "미식가")
         String nickname,
 

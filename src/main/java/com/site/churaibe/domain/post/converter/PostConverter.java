@@ -16,7 +16,7 @@ public class PostConverter {
         Post post = Post.builder()
             .title(request.title())
             .contents(request.contents())
-            .nickname(request.nickname())
+            .nickname(request.nickname() == null || request.nickname().trim().isEmpty() ? "익명" : request.nickname())
             .password(request.password())
             .category(request.category())
             .build();
