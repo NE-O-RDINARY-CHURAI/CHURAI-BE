@@ -1,4 +1,4 @@
-package com.infragen.infragen.global.apiPayload.code;
+package com.site.churaibe.global.apiPayload.code;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

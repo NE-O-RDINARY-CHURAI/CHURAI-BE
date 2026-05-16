@@ -1,7 +1,7 @@
-package com.infragen.infragen.global.apiPayload;
+package com.site.churaibe.global.apiPayload;
 
-import com.infragen.infragen.global.apiPayload.code.BaseErrorCode;
-import com.infragen.infragen.global.apiPayload.code.BaseSuccessCode;
+import com.site.churaibe.global.apiPayload.code.BaseErrorCode;
+import com.site.churaibe.global.apiPayload.code.BaseSuccessCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

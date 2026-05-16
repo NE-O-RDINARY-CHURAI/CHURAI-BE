@@ -1,4 +1,4 @@
-package com.infragen.infragen.global.apiPayload.code;
+package com.site.churaibe.global.apiPayload.code;
 
 import org.springframework.http.HttpStatus;
 

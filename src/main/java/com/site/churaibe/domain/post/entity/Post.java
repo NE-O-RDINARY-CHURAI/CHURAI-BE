@@ -95,4 +95,22 @@ public class Post extends BaseEntity {
         this.reactions.add(reaction);
         reaction.confirmPost(this);
     }
+
+    public void incrementViews() {
+        this.views++;
+    }
+
+    public void update(String title, String contents, Category category) {
+        if (title != null) this.title = title;
+        if (contents != null) this.contents = contents;
+        if (category != null) this.category = category;
+    }
+
+    public void clearImages() {
+        this.postImages.clear();
+    }
+
+    public void clearTags() {
+        this.tags.clear();
+    }
 }
