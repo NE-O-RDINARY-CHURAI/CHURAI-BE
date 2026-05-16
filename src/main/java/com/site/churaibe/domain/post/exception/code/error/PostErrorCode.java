@@ -23,6 +23,11 @@ public enum PostErrorCode implements BaseErrorCode {
         "POST400_1",
         "이미지는 최대 3장까지만 업로드 가능합니다."
     ),
+    PASSWORD_MISMATCH(
+        HttpStatus.FORBIDDEN,
+        "POST403_1",
+        "비밀번호가 일치하지 않습니다."
+    ),
     ;
 
     private final HttpStatus httpStatus;

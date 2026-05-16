@@ -40,4 +40,14 @@ public class PostReqDTO {
         List<MultipartFile> images
     ) {
     }
+
+    public record PostUpdateDTO(
+        @NotBlank(message = "비밀번호는 필수 입력 사항입니다.")
+        String password,
+        String title,
+        String contents,
+        Category category,
+        List<String> imageUrls,
+        List<String> tags
+    ) {}
 }
